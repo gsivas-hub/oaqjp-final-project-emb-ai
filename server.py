@@ -20,16 +20,19 @@ def Emotion_analyzer():
         'fear': fear_score,
         'joy': joy_score,
         'sadness': sadness_score
-    }
+        }
     dominant_emotion = max(emotions, key=emotions.get)
-    dominant_score = emotions[dominant_emotion]
-   
+    #dominant_score = emotions[dominant_emotion]
+    if dominant_emotion is None:
+        return "Invalid input"
+       
     # Return a formatted string with all the scores and the dominant emotion
-    return (
+    else:
+        return (
         "For the given statement,the system response is "
         "'Anger': {}, 'Disgust': {}, 'Fear': {}, 'Joy': {}, 'Sadness': {}. "
         "The dominant emotion is <b> {}<b>."
-        .format(anger_score, disgust_score, fear_score, joy_score, sadness_score, dominant_emotion, dominant_score)
+        .format(anger_score, disgust_score, fear_score, joy_score, sadness_score, dominant_emotion)
     )
 
 @app.route("/")
