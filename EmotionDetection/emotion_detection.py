@@ -23,6 +23,7 @@ def emotion_detector(text_to_analyse):
             'joy': joy,
             'sadness': sadness,
             'dominant_emotion': dominant_emotion
+            
         }
         
     elif response.status_code == 500:
@@ -42,7 +43,7 @@ def emotion_detector(text_to_analyse):
             'dominant_emotion': dominant_emotion
         }
         
-    else:
+    elif response.status_code ==200:
         emotion_data = response_data['emotionPredictions'][0]['emotion']
         # Extract emotion scores
         anger_score = emotion_data['anger']
@@ -60,7 +61,7 @@ def emotion_detector(text_to_analyse):
             'sadness': sadness_score
         }
         dominant_emotion = max(emotion_scores, key=emotion_scores.get)
-        
+              
         # Create the formatted output
         formatted_output = {
             'anger': anger_score,

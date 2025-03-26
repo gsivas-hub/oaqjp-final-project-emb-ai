@@ -1,30 +1,23 @@
 from flask import Flask, render_template, request
 from EmotionDetection.emotion_detection import emotion_detector
 
-app = Flask(__name__)
+app = Flask("emotion Detector")
 
 @app.route("/emotionDetector")
 def Emotion_analyzer():
     text_to_analyze = request.args.get('textToAnalyze')
     emotion_data = emotion_detector(text_to_analyze)
+    
     # Extract the scores from the response
     anger_score = emotion_data['anger']
     disgust_score = emotion_data['disgust']
     fear_score = emotion_data['fear']
     joy_score = emotion_data['joy']
     sadness_score = emotion_data['sadness']
-    # Determine the dominant emotion
-    emotions = {
-        'anger': anger_score,
-        'disgust': disgust_score,
-        'fear': fear_score,
-        'joy': joy_score,
-        'sadness': sadness_score
-        }
-    dominant_emotion = max(emotions, key=emotions.get)
-    #dominant_score = emotions[dominant_emotion]
+    dominant_emotion = emotion_data['dominant_emotion'] 
+
     if dominant_emotion is None:
-        return "Invalid input"
+         return "<b> Invalid text! Please try again! <b>"
        
     # Return a formatted string with all the scores and the dominant emotion
     else:
